@@ -40,7 +40,6 @@ import type {
   GeminiMessage,
   GeminiMessageInput,
   GetChatHistoryParams,
-  GetMoodHistoryParams,
   HealthStatus,
   Hotline,
   ListCommunityPostsParams,
@@ -775,114 +774,6 @@ export const useLogMood = <TError = ErrorType<unknown>,
       > => {
       return useMutation(getLogMoodMutationOptions(options), queryClient);
     }
-
-export const getGetMoodHistoryUrl = (params?: GetMoodHistoryParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : String(value))
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/api/mood?${stringifiedParams}` : `/api/mood`
-}
-
-/**
- * @summary Get mood history for the signed-in user
- */
-export const getMoodHistory = async (params?: GetMoodHistoryParams, options?: Parameters<typeof customFetch>[1]): Promise<MoodEntry[]> => {
-
-  return customFetch<MoodEntry[]>(getGetMoodHistoryUrl(params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetMoodHistoryQueryKey = (params?: GetMoodHistoryParams,) => {
-    return [
-    `/api/mood`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getGetMoodHistoryQueryOptions = <TData = Awaited<ReturnType<typeof getMoodHistory>>, TError = ErrorType<unknown>>(params?: GetMoodHistoryParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetMoodHistoryQueryKey(params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMoodHistory>>> = ({ signal }) => getMoodHistory(params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetMoodHistoryQueryResult = NonNullable<Awaited<ReturnType<typeof getMoodHistory>>>
-export type GetMoodHistoryQueryError = ErrorType<unknown>
-
-
-export function useGetMoodHistory<TData = Awaited<ReturnType<typeof getMoodHistory>>, TError = ErrorType<unknown>>(
- params: undefined |  GetMoodHistoryParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getMoodHistory>>,
-          TError,
-          Awaited<ReturnType<typeof getMoodHistory>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetMoodHistory<TData = Awaited<ReturnType<typeof getMoodHistory>>, TError = ErrorType<unknown>>(
- params?: GetMoodHistoryParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getMoodHistory>>,
-          TError,
-          Awaited<ReturnType<typeof getMoodHistory>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetMoodHistory<TData = Awaited<ReturnType<typeof getMoodHistory>>, TError = ErrorType<unknown>>(
- params?: GetMoodHistoryParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get mood history for the signed-in user
- */
-
-export function useGetMoodHistory<TData = Awaited<ReturnType<typeof getMoodHistory>>, TError = ErrorType<unknown>>(
- params?: GetMoodHistoryParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMoodHistory>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetMoodHistoryQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
 
 export const getListHotlinesUrl = () => {
 

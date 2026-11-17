@@ -196,7 +196,7 @@ function MessageBubble({ msg }: { msg: LocalMessage }) {
         <div className="flex flex-col gap-1 min-w-0">
           {/* Nội dung tin nhắn */}
           <div
-            className={`rounded-2xl px-4 py-2 text-sm sm:text-base leading-relaxed ${
+            className={`rounded-2xl px-4 py-3 text-base sm:text-lg leading-relaxed ${
               isBot
                 ? "bg-card border border-border/50 text-card-foreground rounded-tl-none shadow-sm"
                 : "bg-primary text-primary-foreground rounded-tr-none shadow-md"
@@ -232,7 +232,7 @@ function MessageBubble({ msg }: { msg: LocalMessage }) {
             <button
               onClick={() => speakVietnamese(msg.content)}
               title="Nghe đọc"
-              className="self-start flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors px-1 py-0.5 rounded"
+              className="self-start flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors px-1 py-1 rounded"
             >
               <Volume2 className="w-3 h-3" />
               <span>Nghe</span>
@@ -589,7 +589,7 @@ export default function Chat() {
             <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
           </div>
         ) : conversations.length === 0 ? (
-          <p className="text-xs text-muted-foreground text-center py-4 px-2">
+          <p className="text-sm text-muted-foreground text-center py-4 px-2">
             Chưa có cuộc trò chuyện nào.
             <br />Hãy bắt đầu trò chuyện!
           </p>
@@ -611,7 +611,7 @@ export default function Chat() {
 
       {/* Footer sidebar */}
       <div className="border-t border-sidebar-border pt-2 mt-1">
-        <p className="text-xs text-muted-foreground text-center px-2">
+        <p className="text-sm text-muted-foreground text-center px-2">
           Điểm Tựa Học Đường
           <br />
           <span className="opacity-70">Lê Nguyễn — 10A9</span>
@@ -662,15 +662,15 @@ export default function Chat() {
             <Bot className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="font-semibold text-base flex items-center gap-2">
+            <h1 className="font-semibold text-lg sm:text-xl flex items-center gap-2">
               {activeConvId
                 ? (conversations.find((c) => c.id === activeConvId)?.title ?? "Điểm Tựa")
                 : "Điểm Tựa"}
-              <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+              <span className="inline-flex items-center gap-1 text-sm font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                 <Sparkles className="w-3 h-3" /> AI
               </span>
             </h1>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+            <p className="text-sm text-muted-foreground flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-green-500 inline-block" />
               Đang hoạt động · Gemini
             </p>
@@ -702,10 +702,10 @@ export default function Chat() {
                 <Bot className="w-8 h-8" />
               </div>
               <div>
-                <h2 className="text-xl font-serif font-bold text-foreground">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
                   Xin chào, mình là Điểm Tựa
                 </h2>
-                <p className="text-muted-foreground mt-2 max-w-sm text-sm">
+                <p className="text-muted-foreground mt-2 max-w-md text-base sm:text-lg leading-relaxed">
                   Mình ở đây để lắng nghe và chia sẻ cùng bạn mọi vui buồn
                   trong cuộc sống học đường. Hãy bắt đầu câu chuyện nhé!
                 </p>
@@ -717,8 +717,8 @@ export default function Chat() {
                   <Button
                     key={prompt}
                     variant="outline"
-                    size="sm"
-                    className="rounded-full text-xs sm:text-sm"
+                    size="default"
+                    className="h-auto min-h-11 rounded-full px-4 py-2.5 text-sm font-medium sm:text-base"
                     onClick={() => handleSend(prompt)}
                     disabled={isSending}
                   >
@@ -746,7 +746,7 @@ export default function Chat() {
                 alt="Ảnh sẵn sàng gửi"
                 className="h-14 w-14 rounded-lg object-cover"
               />
-              <span className="flex-1 text-sm text-muted-foreground">Ảnh đã sẵn sàng gửi cho Gemini</span>
+              <span className="flex-1 text-base text-muted-foreground">Ảnh đã sẵn sàng gửi cho Gemini</span>
               <button
                 type="button"
                 onClick={() => setSelectedImage(null)}
@@ -775,21 +775,23 @@ export default function Chat() {
             <Button
               type="button"
               variant="outline"
-              size="icon"
-              className="h-12 w-12 rounded-full flex-shrink-0"
+              size="default"
+              className="h-14 w-[76px] shrink-0 flex-col gap-1 rounded-2xl border-secondary/50 bg-secondary/10 px-2 text-secondary-foreground hover:bg-secondary/20 sm:h-12 sm:w-auto sm:flex-row sm:gap-2 sm:rounded-full sm:px-4"
               onClick={() => imageInputRef.current?.click()}
               disabled={isSending}
               title="Chụp ảnh hoặc chọn ảnh"
               aria-label="Chụp ảnh hoặc chọn ảnh"
+              data-testid="button-chat-attach-image"
             >
               <Camera className="h-5 w-5" />
+              <span className="text-xs font-semibold sm:text-sm">Ảnh</span>
             </Button>
             <Input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Chia sẻ với Điểm Tựa..."
-              className="flex-1 rounded-full h-12 px-5 bg-muted/50 border-transparent focus-visible:ring-primary/50 text-base"
+              className="min-w-0 flex-1 rounded-full h-12 px-4 sm:px-5 bg-muted/50 border-transparent focus-visible:ring-primary/50 text-lg"
               disabled={isSending}
               onKeyDown={(e) => {
                 // Ctrl+Enter hoặc Enter (không có Shift) để gửi
@@ -801,8 +803,10 @@ export default function Chat() {
             />
             <Button
               type="submit"
-              size="icon"
-              className="w-12 h-12 rounded-full flex-shrink-0 shadow-md"
+              size="default"
+              className="h-12 w-12 shrink-0 gap-2 rounded-full px-3 shadow-md sm:w-auto sm:px-4"
+              aria-label="Gửi tin nhắn"
+              data-testid="button-chat-send"
               disabled={(!input.trim() && !selectedImage) || isSending}
             >
               {isSending ? (
@@ -810,6 +814,7 @@ export default function Chat() {
               ) : (
                 <Send className="w-5 h-5 ml-0.5" />
               )}
+              <span className="hidden sm:inline">Gửi</span>
             </Button>
           </form>
         </div>

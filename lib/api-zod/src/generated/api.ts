@@ -148,26 +148,6 @@ export const LogMoodResponse = zod.object({
 
 
 /**
- * @summary Get mood history for the signed-in user
- */
-export const getMoodHistoryQueryDaysDefault = 7;
-
-export const GetMoodHistoryQueryParams = zod.object({
-  "days": zod.coerce.number().int().default(getMoodHistoryQueryDaysDefault)
-})
-
-export const GetMoodHistoryResponseItem = zod.object({
-  "id": zod.int(),
-  "sessionId": zod.string(),
-  "mood": zod.string(),
-  "score": zod.int(),
-  "note": zod.string().nullish(),
-  "createdAt": zod.string()
-})
-export const GetMoodHistoryResponse = zod.array(GetMoodHistoryResponseItem)
-
-
-/**
  * @summary List emergency hotlines and support contacts
  */
 export const ListHotlinesResponseItem = zod.object({

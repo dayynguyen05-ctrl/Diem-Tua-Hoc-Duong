@@ -163,26 +163,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/MoodEntry"
 
-    get:
-      operationId: getMoodHistory
-      tags: [mood]
-      summary: Get mood history for the signed-in user
-      parameters:
-        - name: days
-          in: query
-          schema:
-            type: integer
-            default: 7
-      responses:
-        "200":
-          description: Mood history
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MoodEntry"
-
   /hotlines:
     get:
       operationId: listHotlines

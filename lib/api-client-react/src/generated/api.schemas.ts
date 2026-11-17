@@ -243,10 +243,6 @@ category?: string;
 limit?: number;
 };
 
-export type GetMoodHistoryParams = {
-days?: number;
-};
-
 export type ListGeminiConversationsParams = {
 sessionId: string;
 };

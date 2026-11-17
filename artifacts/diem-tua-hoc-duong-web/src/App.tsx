@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { ClerkProvider, useClerk } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 import { viVN } from "@clerk/localizations";
-import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { Switch, Route, Redirect, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,7 +16,6 @@ import Home from "@/pages/home";
 import Chat from "@/pages/chat";
 import Resources from "@/pages/resources";
 import ResourceDetail from "@/pages/resource-detail";
-import Mood from "@/pages/mood";
 import Hotlines from "@/pages/hotlines";
 import FAQ from "@/pages/faq";
 import MusicPage from "@/pages/music";
@@ -79,8 +78,10 @@ function MainRoutes() {
         <Route path="/chat" component={Chat} />
         <Route path="/resources" component={Resources} />
         <Route path="/resources/:id" component={ResourceDetail} />
-        {/* Mood applies its own signed-in gate before requesting private history. */}
-        <Route path="/mood" component={Mood} />
+        {/* Keep old mood links working; recording now lives in the chat composer. */}
+        <Route path="/mood">
+          <Redirect to="/chat" />
+        </Route>
         <Route path="/hotlines" component={Hotlines} />
         <Route path="/faq" component={FAQ} />
         <Route path="/music" component={MusicPage} />

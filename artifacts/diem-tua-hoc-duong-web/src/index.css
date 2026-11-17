@@ -403,5 +403,5 @@
   .auth-page { padding: 1rem; }
 }
 
-/* Slightly larger base type keeps the existing visual system easier to read. */
-html { font-size: 17px; }
+/* Larger base type improves readability without changing the color system. */
+html { font-size: 18px; }

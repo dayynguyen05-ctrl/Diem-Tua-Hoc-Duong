@@ -34,10 +34,10 @@ export default function Home() {
                 Trò chuyện với Điểm Tựa ngay
               </Button>
             </Link>
-            <Link href="/mood" className="w-full sm:w-auto">
+            <Link href="/chat" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="w-full sm:w-auto text-base rounded-full h-14 px-8 gap-2 bg-background/50 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
                 <HeartPulse className="w-5 h-5 text-primary" />
-                Xem lịch sử cảm xúc
+                Ghi nhận cảm xúc trong chat
               </Button>
             </Link>
           </div>

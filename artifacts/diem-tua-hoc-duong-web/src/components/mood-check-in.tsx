@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useUser } from "@clerk/react";
-import { getGetMoodHistoryQueryKey, useLogMood, type MoodInputMood } from "@workspace/api-client-react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLogMood, type MoodInputMood } from "@workspace/api-client-react";
 import { Heart, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,7 +26,6 @@ const MOODS: { value: MoodInputMood; label: string; score: number; color: string
 export function MoodCheckIn() {
   const { isLoaded, isSignedIn } = useUser();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
   const logMood = useLogMood();
   const [open, setOpen] = useState(false);
   const [selectedMood, setSelectedMood] = useState<typeof MOODS[number] | null>(null);
@@ -44,8 +42,7 @@ export function MoodCheckIn() {
         },
       },
       {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: getGetMoodHistoryQueryKey({ days: 7 }) });
+        onSuccess: () => {
           toast({ title: "Đã lưu cảm xúc", description: "Cảm ơn bạn đã chia sẻ cảm xúc hôm nay." });
           setSelectedMood(null);
           setNote("");
@@ -66,13 +63,14 @@ export function MoodCheckIn() {
         <Button
           type="button"
           variant="outline"
-          size="icon"
-          className="h-11 w-11 shrink-0 rounded-full"
+          size="default"
+          className="h-14 w-[76px] shrink-0 flex-col gap-1 rounded-2xl border-primary/30 bg-primary/5 px-2 text-primary hover:bg-primary/10 sm:h-12 sm:w-auto sm:flex-row sm:gap-2 sm:rounded-full sm:px-4"
           aria-label="Ghi nhận cảm xúc"
           title="Ghi nhận cảm xúc"
           data-testid="button-open-mood-check-in"
         >
-          <Heart className="h-4 w-4" />
+          <Heart className="h-5 w-5" />
+          <span className="text-xs font-semibold sm:text-sm">Cảm xúc</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md rounded-2xl">
@@ -90,7 +88,7 @@ export function MoodCheckIn() {
         ) : isSignedIn ? (
           <div className="space-y-5">
             <fieldset>
-              <legend className="mb-3 text-sm font-medium">Bạn đang cảm thấy thế nào?</legend>
+              <legend className="mb-3 text-base font-medium">Bạn đang cảm thấy thế nào?</legend>
               <div className="grid grid-cols-5 gap-2">
                 {MOODS.map((mood) => {
                   const selected = selectedMood?.value === mood.value;
@@ -107,14 +105,14 @@ export function MoodCheckIn() {
                       }`}
                     >
                       <span className={`h-4 w-4 rounded-full ${mood.color}`} aria-hidden="true" />
-                      <span className="text-xs leading-tight">{mood.label}</span>
+                      <span className="text-sm leading-tight">{mood.label}</span>
                     </button>
                   );
                 })}
               </div>
             </fieldset>
             <div className="space-y-2">
-              <label htmlFor="mood-check-in-note" className="text-sm font-medium">Ghi chú thêm (không bắt buộc)</label>
+              <label htmlFor="mood-check-in-note" className="text-base font-medium">Ghi chú thêm (không bắt buộc)</label>
               <Textarea
                 id="mood-check-in-note"
                 value={note}
@@ -137,8 +135,8 @@ export function MoodCheckIn() {
           </div>
         ) : (
           <div className="space-y-4 rounded-xl border border-border/70 bg-muted/30 p-4">
-            <p className="text-sm leading-relaxed" data-testid="text-mood-sign-in-prompt">
-              Nhật ký cảm xúc là không gian riêng của bạn. Đăng nhập để lưu lại và xem những lần ghi nhận trước đây.
+            <p className="text-base leading-relaxed" data-testid="text-mood-sign-in-prompt">
+              Ghi nhận cảm xúc là không gian riêng của bạn. Đăng nhập để lưu lại trong tài khoản.
             </p>
             <div className="flex flex-wrap gap-2">
               <Button asChild className="rounded-full" data-testid="link-mood-sign-in">

@@ -40,9 +40,9 @@ The site provides student support through Gemini chat, resources, study tools, c
 
 ## User preferences
 
-- Keep the existing colors and interface; make text larger.
+- Keep the existing colors and interface; make text noticeably larger and easy to read, especially in chat.
 - Keep unrelated pages and behavior unchanged.
-- Put mood check-ins in the chat box and require sign-in for mood records.
+- Keep mood check-ins in the chat box, require sign-in to record them, and do not show a separate mood-history page.
 
 ## Gotchas
 

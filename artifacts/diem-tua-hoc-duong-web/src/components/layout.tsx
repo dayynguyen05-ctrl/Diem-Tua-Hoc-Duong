@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import { useClerk, useUser } from "@clerk/react";
-import { Heart, MessageCircle, BookOpen, Smile, PhoneCall, HelpCircle, Menu, X, Music, GraduationCap, Users, LogOut, Compass } from "lucide-react";
+import { Heart, MessageCircle, BookOpen, PhoneCall, HelpCircle, Menu, X, Music, GraduationCap, Users, LogOut, Compass } from "lucide-react";
 import { useState } from "react";
 import { SiGoogle } from "react-icons/si";
 import { Button } from "./ui/button";
@@ -71,7 +71,6 @@ export function Layout({ children }: LayoutProps) {
     { href: "/resources", label: "Tài liệu", icon: BookOpen },
     { href: "/career", label: "Hướng nghiệp", icon: Compass },
     { href: "/community", label: "Cộng đồng", icon: Users },
-    { href: "/mood", label: "Lịch sử cảm xúc", icon: Smile },
     { href: "/hotlines", label: "Liên hệ khẩn cấp", icon: PhoneCall },
     { href: "/faq", label: "Hỏi đáp", icon: HelpCircle },
     { href: "/music", label: "Nhạc thư giãn", icon: Music },
@@ -100,7 +99,7 @@ export function Layout({ children }: LayoutProps) {
                   key={item.href}
                   href={item.href}
                   data-testid={`link-nav-${item.href.replace("/", "") || "home"}`}
-                  className={`whitespace-nowrap px-1.5 py-2 rounded-full text-[0.7rem] font-medium transition-colors flex items-center gap-1 ${
+                  className={`whitespace-nowrap px-1 py-2 rounded-full text-[0.75rem] font-medium transition-colors flex items-center gap-1 ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:bg-primary/10 hover:text-primary"

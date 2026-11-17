@@ -26,7 +26,6 @@ export * from './geminiMessage';
 export * from './geminiMessageInput';
 export * from './geminiMessageInputImageMimeType';
 export * from './getChatHistoryParams';
-export * from './getMoodHistoryParams';
 export * from './healthStatus';
 export * from './hotline';
 export * from './listCommunityPostsParams';
