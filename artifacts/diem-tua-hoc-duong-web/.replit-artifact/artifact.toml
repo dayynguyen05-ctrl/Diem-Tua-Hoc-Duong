@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Điểm Tựa Học Đường"
+description = "Không gian hỗ trợ học sinh, sinh viên Việt Nam với trò chuyện Gemini, ghi nhận cảm xúc cá nhân và tài nguyên học đường."
+version = "1.0.0"
+id = "artifacts/diem-tua-hoc-duong-web"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22053
+
+[services.development]
+run = "pnpm --filter @workspace/diem-tua-hoc-duong-web run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/diem-tua-hoc-duong-web", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/diem-tua-hoc-duong-web/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22053"
+BASE_PATH = "/"
