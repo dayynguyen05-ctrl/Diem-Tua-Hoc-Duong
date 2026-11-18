@@ -1,8 +1,20 @@
 import { useGetStatsOverview, useGetFeaturedResources } from "@workspace/api-client-react";
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { HeartPulse, MessageCircleHeart, PhoneCall, BookOpen, ArrowRight, ShieldCheck, Clock, BookHeart, Compass } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  ArrowDownRight,
+  ArrowRight,
+  BookHeart,
+  BookOpen,
+  Check,
+  Clock,
+  Compass,
+  Heart,
+  HeartPulse,
+  MessageCircleHeart,
+  PhoneCall,
+  ShieldCheck,
+} from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IssueIntakeDialog } from "@/components/issue-intake-dialog";
 import { StudyStreakCard } from "@/components/study-streak-card";
@@ -12,180 +24,213 @@ export default function Home() {
   const { data: featuredResources, isLoading: resourcesLoading } = useGetFeaturedResources();
 
   return (
-    <div className="w-full">
+    <div className="home-page w-full">
       <IssueIntakeDialog />
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 to-background pt-24 pb-32">
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/20 text-secondary-foreground text-sm font-medium mb-6 animate-in fade-in slide-in-from-bottom-4">
-            <ShieldCheck className="w-4 h-4 text-secondary" />
-            <span>Không gian an toàn và bảo mật</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 font-serif animate-in fade-in slide-in-from-bottom-4 delay-100">
-            Hãy để chúng mình lắng nghe bạn
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-4 delay-200">
-            Dù bạn đang lo lắng về việc học, áp lực bạn bè, hay chỉ cần một nơi để trút bầu tâm sự. Điểm Tựa luôn ở đây.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 delay-300">
-            <Link href="/chat" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto text-base rounded-full h-14 px-8 shadow-lg shadow-primary/20 gap-2">
-                <MessageCircleHeart className="w-5 h-5" />
-                Trò chuyện với Điểm Tựa ngay
-              </Button>
-            </Link>
-            <Link href="/chat" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto text-base rounded-full h-14 px-8 gap-2 bg-background/50 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
-                <HeartPulse className="w-5 h-5 text-primary" />
-                Ghi nhận cảm xúc trong chat
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
 
-      <StudyStreakCard />
-
-      {/* Stats/Features Banner */}
-      <section className="py-12 border-y border-border/50 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center text-center px-4 pt-4 sm:pt-0">
-              <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mb-4 text-secondary">
-                <MessageCircleHeart className="w-6 h-6" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">Luôn lắng nghe 24/7</h3>
-              <p className="text-muted-foreground text-sm">Chatbot Điểm Tựa luôn sẵn sàng hỗ trợ bạn bất cứ lúc nào, không phán xét.</p>
+      <section className="home-hero">
+        <div className="home-container home-hero-grid">
+          <div className="home-hero-copy">
+            <div className="home-eyebrow">
+              <span className="home-eyebrow-mark"><ShieldCheck aria-hidden="true" /></span>
+              Không gian an toàn dành cho bạn
             </div>
-            <div className="flex flex-col items-center text-center px-4 pt-8 sm:pt-0">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4 text-primary">
-                <BookHeart className="w-6 h-6" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">
-                {statsLoading ? <Skeleton className="h-6 w-16 mb-1" /> : <>{stats?.totalResources || 0}+ Tài liệu</>}
-              </h3>
-              <p className="text-muted-foreground text-sm">Các bài viết, bí kíp chăm sóc sức khỏe tinh thần được chọn lọc kỹ càng.</p>
-            </div>
-            <div className="flex flex-col items-center text-center px-4 pt-8 sm:pt-0">
-              <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center mb-4 text-destructive">
-                <PhoneCall className="w-6 h-6" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2">
-                {statsLoading ? <Skeleton className="h-6 w-16 mb-1" /> : <>{stats?.totalHotlines || 0}+ Đường dây nóng</>}
-              </h3>
-              <p className="text-muted-foreground text-sm">Liên hệ ngay với các chuyên gia tâm lý khi bạn cần hỗ trợ khẩn cấp.</p>
-            </div>
-            <div className="flex flex-col items-center text-center px-4 pt-8 sm:pt-0">
-              <div className="w-12 h-12 rounded-full bg-[#eaf1fb] flex items-center justify-center mb-4 text-[#193765]">
-                <Compass className="w-6 h-6" />
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-[#193765]">Khám phá hướng nghề nghiệp</h3>
-              <p className="text-muted-foreground text-sm">Năm câu hỏi ngắn gợi mở những lựa chọn phù hợp với điều bạn quan tâm.</p>
-              <Link
-                href="/career"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#193765] hover:text-[#2c568f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#193765]"
-                data-testid="link-home-career-guidance"
-              >
-                Bắt đầu khám phá <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <h1>
+              Có những ngày<br />
+              <em>chỉ cần một nơi</em><br />
+              để được lắng nghe.
+            </h1>
+            <p className="home-hero-lede">
+              Chuyện học hành, bạn bè hay những điều khó gọi tên — bạn có thể bắt đầu từ bất cứ điều gì, theo cách của mình.
+            </p>
+            <div className="home-hero-actions">
+              <Link href="/chat" className="home-primary-link" data-testid="link-home-chat">
+                <MessageCircleHeart aria-hidden="true" />
+                Bắt đầu trò chuyện
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link href="/hotlines" className="home-quiet-link" data-testid="link-home-hotlines-hero">
+                Tôi cần hỗ trợ ngay
               </Link>
             </div>
+            <div className="home-trust-line">
+              <span><Check aria-hidden="true" /> Không phán xét</span>
+              <span><Check aria-hidden="true" /> Bạn chủ động chia sẻ</span>
+            </div>
+          </div>
+
+          <div className="home-note-wrap" aria-label="Lời nhắn từ Điểm Tựa">
+            <div className="home-orbit home-orbit-one" />
+            <div className="home-orbit home-orbit-two" />
+            <div className="home-note-card">
+              <div className="home-note-topline">
+                <span className="home-note-brand"><Heart aria-hidden="true" /> ĐIỂM TỰA</span>
+                <span className="home-note-dot" />
+              </div>
+              <div className="home-note-quote-mark">“</div>
+              <p>Bạn không cần phải biết bắt đầu từ đâu. Cứ kể điều đang khiến bạn bận lòng.</p>
+              <div className="home-note-footer">
+                <span className="home-note-avatar"><HeartPulse aria-hidden="true" /></span>
+                <span><strong>Ở đây cùng bạn</strong><small>Một bước nhỏ cũng là bắt đầu.</small></span>
+              </div>
+            </div>
+            <div className="home-note-caption"><span /> Luôn sẵn sàng khi bạn cần</div>
+          </div>
+        </div>
+        <div className="home-scroll-cue" aria-hidden="true"><span>Khám phá các điểm tựa</span><ArrowDownRight /></div>
+      </section>
+
+      <div className="home-streak-wrap">
+        <StudyStreakCard />
+      </div>
+
+      <section className="home-pathways" aria-labelledby="home-pathways-title">
+        <div className="home-container">
+          <div className="home-section-heading">
+            <div>
+              <span className="home-kicker">BẮT ĐẦU THEO CÁCH CỦA BẠN</span>
+              <h2 id="home-pathways-title">Bạn đang cần điều gì?</h2>
+            </div>
+            <p>Không có lựa chọn nào là sai. Hãy chọn điều phù hợp nhất với bạn lúc này.</p>
+          </div>
+          <div className="home-pathway-grid">
+            <Link href="/chat" className="home-pathway home-pathway-chat" data-testid="link-home-pathway-chat">
+              <span className="home-pathway-number">01 / LẮNG NGHE</span>
+              <span className="home-pathway-icon"><MessageCircleHeart aria-hidden="true" /></span>
+              <strong>Muốn trò chuyện?</strong>
+              <span className="home-pathway-description">Chia sẻ điều đang khiến bạn nghĩ ngợi, không cần chuẩn bị trước.</span>
+              <span className="home-pathway-action">Mở cuộc trò chuyện <ArrowRight aria-hidden="true" /></span>
+            </Link>
+            <Link href="/resources" className="home-pathway home-pathway-resource" data-testid="link-home-pathway-resources">
+              <span className="home-pathway-number">02 / TÌM HIỂU</span>
+              <span className="home-pathway-icon"><BookOpen aria-hidden="true" /></span>
+              <strong>Cần một góc tham khảo?</strong>
+              <span className="home-pathway-description">Bài viết gần gũi về cảm xúc, học tập và cách chăm sóc bản thân.</span>
+              <span className="home-pathway-action">Xem tài liệu <ArrowRight aria-hidden="true" /></span>
+            </Link>
+            <Link href="/career" className="home-pathway home-pathway-career" data-testid="link-home-pathway-career">
+              <span className="home-pathway-number">03 / ĐỊNH HƯỚNG</span>
+              <span className="home-pathway-icon"><Compass aria-hidden="true" /></span>
+              <strong>Đang nghĩ về tương lai?</strong>
+              <span className="home-pathway-description">Khám phá những hướng nghề nghiệp bắt đầu từ điều bạn quan tâm.</span>
+              <span className="home-pathway-action">Khám phá hướng đi <ArrowRight aria-hidden="true" /></span>
+            </Link>
+            <Link href="/hotlines" className="home-pathway home-pathway-urgent" data-testid="link-home-pathway-hotlines">
+              <span className="home-pathway-number">04 / HỖ TRỢ NGAY</span>
+              <span className="home-pathway-icon"><PhoneCall aria-hidden="true" /></span>
+              <strong>Cần người hỗ trợ khẩn cấp?</strong>
+              <span className="home-pathway-description">Tìm các đường dây hỗ trợ và liên hệ phù hợp khi bạn cần.</span>
+              <span className="home-pathway-action">Xem danh bạ hỗ trợ <ArrowRight aria-hidden="true" /></span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Resources */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-10">
+      <section className="home-proof" aria-label="Thông tin về Điểm Tựa">
+        <div className="home-container home-proof-grid">
+          <div className="home-proof-intro">
+            <span className="home-kicker">ĐIỂM TỰA HỌC ĐƯỜNG</span>
+            <h2>Một nơi nhỏ,<br /><em>nhiều cách giúp bạn.</em></h2>
+          </div>
+          <div className="home-proof-item">
+            <span className="home-proof-icon"><MessageCircleHeart aria-hidden="true" /></span>
+            <strong>Luôn có thể trò chuyện</strong>
+            <p>Chatbot sẵn sàng lắng nghe bất cứ lúc nào, không phán xét.</p>
+          </div>
+          <div className="home-proof-item">
+            <span className="home-proof-icon"><BookHeart aria-hidden="true" /></span>
+            <strong>{statsLoading ? <Skeleton className="h-5 w-24" /> : <>{stats?.totalResources || 0}+ tài liệu</>}</strong>
+            <p>Nội dung được chọn lọc để bạn hiểu mình và chăm sóc mình tốt hơn.</p>
+          </div>
+          <div className="home-proof-item">
+            <span className="home-proof-icon home-proof-urgent"><PhoneCall aria-hidden="true" /></span>
+            <strong>{statsLoading ? <Skeleton className="h-5 w-28" /> : <>{stats?.totalHotlines || 0}+ đầu mối hỗ trợ</>}</strong>
+            <p>Danh bạ liên hệ để bạn tìm được hỗ trợ phù hợp khi cần.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-resources" aria-labelledby="home-resources-title">
+        <div className="home-container">
+          <div className="home-section-heading home-resource-heading">
             <div>
-              <h2 className="text-3xl font-bold font-serif mb-2 text-foreground">Góc tài liệu hữu ích</h2>
-              <p className="text-muted-foreground">Những bài viết nổi bật giúp bạn hiểu rõ hơn về bản thân.</p>
+              <span className="home-kicker">ĐỌC THÊM, HIỂU MÌNH</span>
+              <h2 id="home-resources-title">Góc tài liệu hữu ích</h2>
+              <p>Những gợi ý nhỏ, để bạn có thêm cách gọi tên điều mình đang trải qua.</p>
             </div>
-            <Link href="/resources">
-              <Button variant="ghost" className="hidden sm:flex gap-2 text-primary hover:text-primary hover:bg-primary/10">
-                Xem tất cả <ArrowRight className="w-4 h-4" />
-              </Button>
+            <Link href="/resources" className="home-all-resources" data-testid="link-home-all-resources">
+              Tất cả tài liệu <ArrowRight aria-hidden="true" />
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="home-resource-grid">
             {resourcesLoading ? (
-              Array(3).fill(0).map((_, i) => (
-                <Card key={i} className="overflow-hidden border-border/50">
-                  <Skeleton className="h-48 w-full rounded-none" />
-                  <CardHeader>
-                    <Skeleton className="h-4 w-20 mb-2" />
+              Array.from({ length: 3 }, (_, index) => (
+                <Card key={index} className="home-resource-card home-resource-skeleton">
+                  <Skeleton className="h-44 w-full rounded-none" />
+                  <CardHeader className="p-5">
+                    <Skeleton className="mb-2 h-4 w-20" />
                     <Skeleton className="h-6 w-full" />
                   </CardHeader>
-                  <CardContent>
-                    <Skeleton className="h-4 w-full mb-1" />
+                  <CardContent className="px-5 pb-5 pt-0">
+                    <Skeleton className="mb-2 h-4 w-full" />
                     <Skeleton className="h-4 w-2/3" />
                   </CardContent>
                 </Card>
               ))
-            ) : (
-              featuredResources?.slice(0, 3).map((resource) => (
-                <Link key={resource.id} href={`/resources/${resource.id}`} className="group block">
-                  <Card className="overflow-hidden h-full border-border/50 hover:shadow-md hover:border-primary/30 transition-all duration-300">
-                    {resource.imageUrl && (
-                      <div className="h-48 overflow-hidden bg-muted">
-                        <img 
-                          src={resource.imageUrl} 
-                          alt={resource.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                        />
-                      </div>
-                    )}
-                    <CardHeader className="p-5 pb-2">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary">
-                          {resource.category}
-                        </span>
-                        <div className="flex items-center text-xs text-muted-foreground gap-1">
-                          <Clock className="w-3 h-3" />
-                          {resource.readMinutes} phút
+            ) : featuredResources?.length ? (
+              featuredResources.slice(0, 3).map((resource, index) => (
+                <Link
+                  key={resource.id}
+                  href={`/resources/${resource.id}`}
+                  className="home-resource-link"
+                  data-testid={`link-home-resource-${resource.id}`}
+                >
+                  <Card className="home-resource-card">
+                    <div className="home-resource-image">
+                      {resource.imageUrl ? (
+                        <img src={resource.imageUrl} alt={resource.title} />
+                      ) : (
+                        <div className={`home-resource-art home-resource-art-${index + 1}`}>
+                          <BookHeart aria-hidden="true" />
+                          <span>GÓC NHỎ<br />CHO BẠN</span>
                         </div>
-                      </div>
-                      <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                        {resource.title}
-                      </CardTitle>
+                      )}
+                      <span className="home-resource-read"><Clock aria-hidden="true" /> {resource.readMinutes} phút đọc</span>
+                    </div>
+                    <CardHeader className="home-resource-card-heading">
+                      <span className="home-resource-category">{resource.category}</span>
+                      <CardTitle className="home-resource-title">{resource.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="p-5 pt-2">
-                      <CardDescription className="line-clamp-3 text-sm">
-                        {resource.summary}
-                      </CardDescription>
+                    <CardContent className="home-resource-card-content">
+                      <CardDescription>{resource.summary}</CardDescription>
+                      <span className="home-read-link">Đọc bài viết <ArrowRight aria-hidden="true" /></span>
                     </CardContent>
                   </Card>
                 </Link>
               ))
+            ) : (
+              <div className="home-resource-empty">
+                <BookOpen aria-hidden="true" />
+                <div><strong>Góc tài liệu đang được chuẩn bị</strong><p>Bạn có thể ghé lại sau hoặc khám phá các nội dung khác.</p></div>
+                <Link href="/resources">Khám phá tài liệu <ArrowRight aria-hidden="true" /></Link>
+              </div>
             )}
           </div>
-          
-          <div className="mt-8 text-center sm:hidden">
-            <Link href="/resources">
-              <Button variant="outline" className="w-full gap-2 rounded-full">
-                Xem tất cả bài viết <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
+          <Link href="/resources" className="home-mobile-all" data-testid="link-home-all-resources-mobile">
+            Xem tất cả tài liệu <ArrowRight aria-hidden="true" />
+          </Link>
         </div>
       </section>
 
-      {/* Emergency CTA */}
-      <section className="py-16 bg-gradient-to-br from-destructive/10 to-background border-t border-destructive/10">
-        <div className="container mx-auto px-4 text-center max-w-2xl">
-          <div className="w-16 h-16 rounded-full bg-destructive/20 flex items-center justify-center mx-auto mb-6">
-            <PhoneCall className="w-8 h-8 text-destructive" />
+      <section className="home-emergency" aria-labelledby="home-emergency-title">
+        <div className="home-container home-emergency-inner">
+          <div className="home-emergency-symbol"><PhoneCall aria-hidden="true" /></div>
+          <div className="home-emergency-copy">
+            <span className="home-emergency-kicker">BẠN KHÔNG CẦN Ở MỘT MÌNH</span>
+            <h2 id="home-emergency-title">Nếu bạn cần giúp đỡ ngay lúc này</h2>
+            <p>Nếu bạn đang thấy không an toàn hoặc có ý nghĩ làm hại bản thân, hãy tìm một người lớn đáng tin cậy ở cạnh và liên hệ hỗ trợ chuyên nghiệp.</p>
           </div>
-          <h2 className="text-2xl font-bold mb-4">Bạn đang trong tình trạng khẩn cấp?</h2>
-          <p className="text-muted-foreground mb-8">
-            Nếu bạn đang có suy nghĩ làm hại bản thân hoặc cần một người trò chuyện ngay lập tức, xin đừng ngần ngại liên hệ với các đường dây nóng hỗ trợ tâm lý chuyên nghiệp.
-          </p>
-          <Link href="/hotlines">
-            <Button size="lg" variant="destructive" className="rounded-full shadow-lg shadow-destructive/20 px-8 gap-2">
-              <PhoneCall className="w-5 h-5" />
-              Xem danh bạ khẩn cấp 24/7
-            </Button>
+          <Link href="/hotlines" className="home-emergency-action" data-testid="link-home-emergency">
+            <span>Xem danh bạ khẩn cấp</span><ArrowRight aria-hidden="true" />
           </Link>
         </div>
       </section>
