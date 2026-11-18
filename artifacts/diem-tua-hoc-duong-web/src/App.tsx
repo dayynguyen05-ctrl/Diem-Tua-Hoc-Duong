@@ -9,7 +9,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
 import { SignInPage, SignUpPage, clerkAppearance } from "@/components/auth-pages";
-import { UmamiTracker } from "@/components/umami-tracker";
 
 // Nhập tất cả các trang
 import Home from "@/pages/home";
@@ -138,7 +137,6 @@ function ClerkApp() {
     >
       <QueryClientProvider client={queryClient}>
         <ClerkQueryClientCacheInvalidator />
-        <UmamiTracker />
         <TooltipProvider>
           <AppRoutes />
           <Toaster />
